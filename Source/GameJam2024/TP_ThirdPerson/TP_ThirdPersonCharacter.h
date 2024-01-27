@@ -47,7 +47,10 @@ class ATP_ThirdPersonCharacter : public APaperZDCharacter
 
 public:
 	ATP_ThirdPersonCharacter();
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool Mirror = false;
+
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 
