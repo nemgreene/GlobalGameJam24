@@ -225,7 +225,7 @@ void ATP_ThirdPersonCharacter::Tick(float DeltaTime)
 
       FVector InteractableLocation = HeldItem->GetActorLocation();
 
-      FVector LerpedVector = FMath::Lerp(PlayerLocation + HeldItemOffset, InteractableLocation, DeltaSeconds);
+      FVector LerpedVector = FMath::Lerp(PlayerLocation + HeldItemOffset, InteractableLocation, DeltaTime);
 
       HeldItem->SetActorLocation(LerpedVector);
     }
