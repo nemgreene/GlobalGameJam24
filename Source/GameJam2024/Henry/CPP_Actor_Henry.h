@@ -14,6 +14,7 @@ class GAMEJAM2024_API ACPP_Actor_Henry : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ACPP_Actor_Henry();
+	// test add
 
 protected:
 	// Called when the game starts or when spawned
