@@ -7,10 +7,12 @@ public class GameJam2024 : ModuleRules
 	public GameJam2024(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] {  });
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });
+
+        PublicDependencyModuleNames.AddRange(new string[] { "AIModule", "NavigationSystem", "GameplayTasks", "UMG" });
+
+        PrivateDependencyModuleNames.AddRange(new string[] { "PaperZD", "Paper2D" });
 
         PublicIncludePaths.AddRange(
         new string[] {
