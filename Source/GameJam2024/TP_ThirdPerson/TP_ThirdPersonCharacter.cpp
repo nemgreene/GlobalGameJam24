@@ -56,12 +56,21 @@ ATP_ThirdPersonCharacter::ATP_ThirdPersonCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+
+	// Capsule to pick up item
+	TriggerCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("TriggerCapsule"));
+	TriggerCapsule->SetupAttachment(RootComponent);
+	TriggerCapsule->SetCollisionProfileName("Trigger");
+
 }
 
 void ATP_ThirdPersonCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
+	TriggerCapsule->OnComponentBeginOverlap.AddDynamic(this, &ATP_ThirdPersonCharacter::OnOverlapBegin);
+	TriggerCapsule->OnComponentEndOverlap.AddDynamic(this, &ATP_ThirdPersonCharacter::OnCapsuleOverlapEnd);
 
 	//Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
@@ -90,6 +99,9 @@ void ATP_ThirdPersonCharacter::SetupPlayerInputComponent(UInputComponent* Player
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATP_ThirdPersonCharacter::Look);
+
+		// Pick up
+		EnhancedInputComponent->BindAction(PickUpAction, ETriggerEvent::Started, this, &ATP_ThirdPersonCharacter::PickUp);
 	}
 	else
 	{
@@ -136,11 +148,87 @@ void ATP_ThirdPersonCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
+
+// Check for item closest to the player and then attach it to the player
+void ATP_ThirdPersonCharacter::PickUp(const FInputActionValue& Value)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Pick up!"))
+
+	// If already holding item, drop it
+	if(HeldItem != nullptr)
+	{
+		//TargetItem->SetActorEnableCollision(true);
+		HeldItem->SetPickedUp(false);
+		TargetItem = HeldItem;
+
+		HeldItem = nullptr;
+		return;
+	}
+
+	// Get targetted item if one selected
+	if(TargetItem != nullptr)
+	{
+		//TargetItem->SetActorEnableCollision(false);
+		TargetItem->SetPickedUp(true);
+
+		HeldItem = TargetItem;
+		TargetItem = nullptr;
+	}
+}
+
+// Target item to pick up
+void ATP_ThirdPersonCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	//UE_LOG(LogTemp, Warning, TEXT("Something hit"))
+
+	if(OtherActor && OtherActor->IsA<AInteractableActor>())
+	{
+		AInteractableActor* InteractableActor = Cast<AInteractableActor>(OtherActor);
+
+		TargetItem = InteractableActor;
+		//HeldItem->SetActorLocation(GetActorLocation());
+		UE_LOG(LogTemp, Warning, TEXT("Interactable hit"))
+
+	}
+}
+
+// Remove targetted item if leaving
+void ATP_ThirdPersonCharacter::OnCapsuleOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	//UE_LOG(LogTemp, Warning, TEXT("Something leaving"))
+
+		if (OtherActor && OtherActor->IsA<AInteractableActor>())
+		{
+			AInteractableActor* InteractableActor = Cast<AInteractableActor>(OtherActor);
+
+			if(TargetItem == InteractableActor)
+			{
+				TargetItem = nullptr;
+			}
+
+			//HeldItem->SetActorLocation(GetActorLocation());
+			UE_LOG(LogTemp, Warning, TEXT("Interactable left"))
+
+		}
+
+}
+
 // Called every frame
 void ATP_ThirdPersonCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+      //UE_LOG(LogTemp, Warning, TEXT("hi"))
+    if(HeldItem != nullptr)
+    {
+      FVector PlayerLocation = GetActorLocation();
+
+      FVector InteractableLocation = HeldItem->GetActorLocation();
+
+      FVector LerpedVector = FMath::Lerp(PlayerLocation + HeldItemOffset, InteractableLocation, DeltaSeconds);
+
+      HeldItem->SetActorLocation(LerpedVector);
+    }
 	// if mirror is true then mirror the character
 	// else don't mirror the character
 
