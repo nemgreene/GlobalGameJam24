@@ -9,11 +9,15 @@ AInteractableActor::AInteractableActor() : IsPickedUp(false)
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
+	RootComponent = DefaultSceneRoot;
+
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
+	BoxComponent->SetupAttachment(RootComponent);
 	BoxComponent->SetSimulatePhysics(true);
 	BoxComponent->SetEnableGravity(true);
 
-	RootComponent = BoxComponent;
+	//RootComponent = BoxComponent;
 	//BoxComponent->SetCollisionProfileName("");
 }
 
