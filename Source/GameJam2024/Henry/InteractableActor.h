@@ -50,8 +50,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 		UBoxComponent* BoxComponent;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
-		USceneComponent* DefaultSceneRoot;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	//	USceneComponent* DefaultSceneRoot;
 
 private:
 	bool IsPickedUp;
