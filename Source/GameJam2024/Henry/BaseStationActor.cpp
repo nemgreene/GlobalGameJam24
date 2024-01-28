@@ -33,6 +33,11 @@ void ABaseStationActor::Tick(float DeltaTime)
 
 }
 
+void ABaseStationActor::Completion()
+{
+	
+}
+
 // Check dropped item to see if its in the list
 bool ABaseStationActor::CheckIngredient(AIngredientActor* Ingredient)
 {
@@ -41,13 +46,28 @@ bool ABaseStationActor::CheckIngredient(AIngredientActor* Ingredient)
 	if(IngredientsList.Contains(IngredientName))
 	{
 		IngredientsList.RemoveSingle(IngredientName);
+<<<<<<< HEAD
 		Ingredient->Destroy();
 		OnBlocking.Broadcast();
+=======
+		CheckFunction(Ingredient);
+
+		if(IngredientsList.IsEmpty())
+		{
+			Completion();
+		}
+
+>>>>>>> a66583732d83a6b59ff7d1d8b23fdcd033330918
 		return true;
 
 	}
 
 	return false;
+}
+
+void ABaseStationActor::CheckFunction(AIngredientActor* Ingredient)
+{
+	Ingredient->Destroy();
 }
 
 void ABaseStationActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -59,7 +79,10 @@ void ABaseStationActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 		ATP_ThirdPersonCharacter* Player = Cast<ATP_ThirdPersonCharacter>(OtherActor);
 
 		// Set the players current station for if the player drops the item
-		Player->SetCurrentStation(this);
+		if(Player->GetCurrentStation() == nullptr)
+		{
+			Player->SetCurrentStation(this);
+		}
 	}
 }
 
