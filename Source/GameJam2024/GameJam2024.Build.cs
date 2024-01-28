@@ -12,7 +12,7 @@ public class GameJam2024 : ModuleRules
 
         PublicDependencyModuleNames.AddRange(new string[] { "AIModule", "NavigationSystem", "GameplayTasks", "UMG" });
 
-        PrivateDependencyModuleNames.AddRange(new string[] { "PaperZD", "Paper2D" });
+        PrivateDependencyModuleNames.AddRange(new string[] {"Paper2D", "PaperZD" });
 
         PublicIncludePaths.AddRange(
         new string[] {
@@ -20,7 +20,7 @@ public class GameJam2024 : ModuleRules
             "GameJam2024/Vincent",
             "GameJam2024/Max",
             "GameJam2024/Henry",
-            "GameJam2024/Calyton",
+            "GameJam2024/Clayton",
         });
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
