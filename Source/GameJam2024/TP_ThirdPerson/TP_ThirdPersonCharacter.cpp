@@ -255,7 +255,7 @@ void ATP_ThirdPersonCharacter::Tick(float DeltaTime)
       FVector InteractableLocation = HeldItem->GetActorLocation();
 
       FVector LerpedVector = FMath::Lerp(PlayerLocation + HeldItemOffset, InteractableLocation, DeltaTime);
-
+	  UE_LOG(LogTemp, Warning, TEXT("%s"), *LerpedVector.ToString())
       HeldItem->SetActorLocation(LerpedVector);
     }
 	// if mirror is true then mirror the character
