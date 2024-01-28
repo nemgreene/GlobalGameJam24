@@ -26,7 +26,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	virtual void Completion();
+
 	bool CheckIngredient(AIngredientActor* Ingredient);
+
+	virtual void CheckFunction(AIngredientActor* Ingredient);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 		TArray<TEnumAsByte<IngredientType>> IngredientsList;
