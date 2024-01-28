@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BaseStationActor.h"
 #include "InteractableActor.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
@@ -101,6 +102,10 @@ public:
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
+	void SetCurrentStation(ABaseStationActor* Station);
+
+	ABaseStationActor* GetCurrentStation();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	AInteractableActor* HeldItem;
 
@@ -112,5 +117,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 		FVector HeldItemOffset = FVector(0,0,300.0f);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item")
+		ABaseStationActor* CurrentStation;
 };
 

@@ -7,6 +7,13 @@
 #include "GameFramework/Actor.h"
 #include "InteractableActor.generated.h"
 
+UENUM(BlueprintType)
+enum InteractableType : uint8
+{
+	INGREDIENT UMETA(DisplayName = "Ingredient"),
+	TOOL UMETA(DisplayName = "Tool"),
+};
+
 UCLASS()
 class GAMEJAM2024_API AInteractableActor : public AActor
 {
@@ -21,11 +28,6 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	enum InteractableType
-	{
-		INGREDIENT,
-		TOOL,
-	};
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -39,6 +41,10 @@ public:
 
 	void SetPickedUp(bool b);
 
+	InteractableType GetInteractableType();
+
+	void SetInteractableType(InteractableType t);
+
 	void SetBoxComponentPhysics(bool b);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
@@ -46,4 +52,6 @@ public:
 
 private:
 	bool IsPickedUp;
+
+	TEnumAsByte <InteractableType> Type;
 };
