@@ -46,7 +46,9 @@ bool ABaseStationActor::CheckIngredient(AIngredientActor* Ingredient)
 	if(IngredientsList.Contains(IngredientName))
 	{
 		IngredientsList.RemoveSingle(IngredientName);
-		Ingredient->Destroy();		
+				
+		//Ingredient->Destroy();		
+
 		CheckFunction(Ingredient);
 
 		if(IngredientsList.IsEmpty())
