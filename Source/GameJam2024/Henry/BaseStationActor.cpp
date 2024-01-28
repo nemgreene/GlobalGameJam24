@@ -46,6 +46,10 @@ bool ABaseStationActor::CheckIngredient(AIngredientActor* Ingredient)
 	if(IngredientsList.Contains(IngredientName))
 	{
 		IngredientsList.RemoveSingle(IngredientName);
+<<<<<<< HEAD
+		Ingredient->Destroy();
+		OnBlocking.Broadcast();
+=======
 		CheckFunction(Ingredient);
 
 		if(IngredientsList.IsEmpty())
@@ -53,7 +57,9 @@ bool ABaseStationActor::CheckIngredient(AIngredientActor* Ingredient)
 			Completion();
 		}
 
+>>>>>>> a66583732d83a6b59ff7d1d8b23fdcd033330918
 		return true;
+
 	}
 
 	return false;

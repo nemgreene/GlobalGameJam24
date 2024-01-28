@@ -15,6 +15,11 @@ enum IngredientType : uint8
 	CANDLE UMETA(DisplayName = "Candle"),
 	STREAMER UMETA(DisplayName = "Streamer"),
 	FIREEXTINGUISHER UMETA(DisplayName = "Fire Extinguisher"),
+	CAKE UMETA(DisplayName = "Cake"),
+
+	EGGT UMETA(DisplayName = "EggT"),
+	MILKT UMETA(DisplayName = "MilkT"),
+	FLOURT UMETA(DisplayName = "FlourT"),
 };
 
 /**
