@@ -3,7 +3,7 @@
 
 #include "Vincent/CPP_GameMode_VG.h"
 
-void ACPP_GameMode_VG::onInteract()
-{
-	OnInteracting.Broadcast();
-}
+//void ACPP_GameMode_VG::onInteract()
+//{
+//	OnInteracting.Broadcast();
+//}
