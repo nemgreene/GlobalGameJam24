@@ -38,8 +38,9 @@ class GAMEJAM2024_API ACPP_GameMode_VG : public AGameModeBase
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     TArray<FSDayData> DayList = { 
-        {0, FString("Day 01"), FString("L_Sandbox_VG")},
-        {1, FString("Day 02"), FString("L_Workshop_VG")},
+        {0, FString("Day 01"), FString("L_Day_1_MT")},
+        {1, FString("Day 02"), FString("L_Day_2_MT")},
+        {1, FString("Day 03"), FString("L_Day_3_MT")},
     };
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FSDayData ActiveDay;
