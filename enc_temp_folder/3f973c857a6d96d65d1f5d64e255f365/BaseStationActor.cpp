@@ -42,9 +42,7 @@ bool ABaseStationActor::CheckIngredient(AIngredientActor* Ingredient)
 	{
 		IngredientsList.RemoveSingle(IngredientName);
 		Ingredient->Destroy();
-		OnBlocking.Broadcast();
 		return true;
-
 	}
 
 	return false;

@@ -9,9 +9,6 @@
 
 class UCapsuleComponent;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FHeroBlocking);
-
-
 UCLASS()
 class GAMEJAM2024_API ABaseStationActor : public AActor
 {
@@ -54,8 +51,5 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collection")
 		UCapsuleComponent* TriggerCapsule;
-
-		UPROPERTY(BlueprintAssignable)
-		FHeroBlocking OnBlocking;
 
 };

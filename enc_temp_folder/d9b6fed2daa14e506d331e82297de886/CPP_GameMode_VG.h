@@ -41,6 +41,5 @@ public:
         {0, FString("Day 01"), FString("L_Sandbox_VG")},
         {1, FString("Day 02"), FString("L_Workshop_VG")},
     };
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FSDayData ActiveDay;
+	
 };
