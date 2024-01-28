@@ -82,6 +82,16 @@ void ATP_ThirdPersonCharacter::BeginPlay()
 	}
 }
 
+void ATP_ThirdPersonCharacter::SetCurrentStation(ABaseStationActor* Station)
+{
+	CurrentStation = Station;
+}
+
+ABaseStationActor* ATP_ThirdPersonCharacter::GetCurrentStation()
+{
+	return CurrentStation;
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Input
 
@@ -150,6 +160,7 @@ void ATP_ThirdPersonCharacter::Look(const FInputActionValue& Value)
 
 
 // Check for item closest to the player and then attach it to the player
+// Or drop the item at either station or on the floor
 void ATP_ThirdPersonCharacter::PickUp(const FInputActionValue& Value)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Pick up!"))
@@ -157,7 +168,25 @@ void ATP_ThirdPersonCharacter::PickUp(const FInputActionValue& Value)
 	// If already holding item, drop it
 	if(HeldItem != nullptr)
 	{
-		//TargetItem->SetActorEnableCollision(true);
+		// If dropped at station, check ingredient
+		if(CurrentStation != nullptr && HeldItem->IsA<AIngredientActor>())
+		{
+			AIngredientActor* Ingredient = Cast<AIngredientActor>(HeldItem);
+			bool Accepted = CurrentStation->CheckIngredient(Ingredient);
+
+			HeldItem->SetPickedUp(false);
+
+			// If not accepted, item stays on floor
+			if(!Accepted)
+			{
+				TargetItem = HeldItem;
+			}
+
+			HeldItem = nullptr;
+			return;
+		}
+
+		// Item on floor
 		HeldItem->SetPickedUp(false);
 		TargetItem = HeldItem;
 

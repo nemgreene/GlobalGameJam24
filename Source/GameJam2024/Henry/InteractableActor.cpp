@@ -46,9 +46,20 @@ void AInteractableActor::SetPickedUp(bool b)
 	SetBoxComponentPhysics(!b);
 }
 
+InteractableType AInteractableActor::GetInteractableType()
+{
+	return Type;
+}
+
+void AInteractableActor::SetInteractableType(InteractableType t)
+{
+	Type = t;
+}
+
 void AInteractableActor::SetBoxComponentPhysics(bool b)
 {
 	BoxComponent->SetSimulatePhysics(b);
 	BoxComponent->SetEnableGravity(b);
+	
 }
 
